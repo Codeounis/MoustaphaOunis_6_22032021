@@ -1,15 +1,19 @@
 const express = require('express');
 const app = express();
+
 const mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+
 const path = require('path');
 
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
-mongoose.connect('mongodb+srv://Codeounis:Oldelpayou31@coursmangodb.gqapm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+const helmet = require("helmet");
+
+mongoose.connect('mongodb+srv://retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -28,5 +32,7 @@ app.use('/images',express.static(path.join(__dirname,'images')));
   
 app.use('/api/sauces',sauceRoutes);
 app.use('/api/auth',userRoutes);
+
+app.use(helmet());
 
 module.exports = app;
