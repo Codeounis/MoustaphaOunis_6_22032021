@@ -1,11 +1,13 @@
+
+// Sécurité 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-
-
 const MaskData = require('maskdata');
 const { maskEmail2 } = require('maskdata');
 
+
+// POST : inscription et connexion
+const User = require('../models/user');
 
 exports.signup = (req, res, next) =>{
     bcrypt.hash(req.body.password,10)

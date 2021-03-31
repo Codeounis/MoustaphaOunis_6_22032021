@@ -1,3 +1,4 @@
+// Express + Mongo 
 const express = require('express');
 const app = express();
 
@@ -6,14 +7,24 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const path = require('path');
-
+// Routes
+const path = require('path'); 
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
+// Securité 
+const Ddos = require('ddos');
+const ddos = new Ddos({burst:10, limit:15})
+app.use(ddos.express);
+
 const helmet = require("helmet");
 
-mongoose.connect('mongodb+srv://retryWrites=true&w=majority',
+const mongoSanitize = require('express-mongo-sanitize');
+
+// Connexion MongoDb avec le fichier dotenv
+require('dotenv').config();
+
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.gqapm.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -26,13 +37,18 @@ app.use((req, res, next) => {
   next();
 });
 
+
+// Gestion JSON 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use('/images',express.static(path.join(__dirname,'images')));
-  
+
+// Application des routes 
 app.use('/api/sauces',sauceRoutes);
 app.use('/api/auth',userRoutes);
 
+// Application sécurité
 app.use(helmet());
+app.use(mongoSanitize());
 
 module.exports = app;
