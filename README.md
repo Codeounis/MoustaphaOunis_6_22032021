@@ -8,10 +8,11 @@ VISUALISER LE PROJET
 Afin de visualiser correctement le projet veuillez suivre les étapes ci dessous:
 1- Cloner le repository du backend (lien dans le depôt OPC), Le lien du front-end est disponible dans la page de description de la mission.
 2- Remplacer le fichier .env par celui fourni dans le depôt du projet openclassrooms dans le dossier backend.
-3- Ouvrir un premier terminal dans le dossier backend.
-4- télécharger les modules node necessaire pour le bon fonctionnement du backend (liste disponible a la fin du README).
+3- Ouvrir un premier terminal dans le dossier backend et installer si nécessaire le framework EXPRESS via la commande "npm i express".
+4- Si nécessaire, la liste des modules node installés sont disponibles à la fin du README.
+6- Puis dans le premier terminal, lançer la commande "nodemon server" ou "npm start".
 5- Ouvrir un second terminal dans le dossier frontend puis lançer la commande "ng serve".
-6- Puis dans le premier terminal, lançer la commande "nodemon server".
+
 
 
 INTRODUCTION
@@ -54,7 +55,7 @@ Serveur : NodeJS ;
 Base de données : MongoDB ;
 Toutes les opérations de la base de données doivent utiliser le pack Mongoose avec des schémas de données stricts.
 
-Liste des modules node nécessaire:
+Liste des modules node installés:
 
 EXPRESS
 BCRYPT
